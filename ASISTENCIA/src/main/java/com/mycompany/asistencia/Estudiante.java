@@ -32,4 +32,9 @@ public class Estudiante {
     public String getCodigo(){
         return codigo;
     }
+    //metodo para eliminar 
+    public boolean eliminar (String codigoBuscado){
+      //retorna true si este estudiante debe eliminarse 
+      return this.codigo.equals(codigoBuscado);
+    }
 }
