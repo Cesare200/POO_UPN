@@ -47,6 +47,7 @@ public void mostrarMensaje(String mensaje, String titulo){
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +71,9 @@ public void mostrarMensaje(String mensaje, String titulo){
 
         jLabel3.setText("AGREGAR ESTUDIANTES");
 
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,19 +81,23 @@ public void mostrarMensaje(String mensaje, String titulo){
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(39, 39, 39)
-                            .addComponent(btnAgregar)
-                            .addGap(43, 43, 43)
-                            .addComponent(btnMostrar)
-                            .addGap(54, 54, 54))
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(btnAgregar)
+                                .addGap(43, 43, 43)
+                                .addComponent(btnMostrar)
+                                .addGap(54, 54, 54))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addGap(25, 25, 25))
                     .addComponent(txtNombre)
                     .addComponent(txtCodigo)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
@@ -111,7 +119,8 @@ public void mostrarMensaje(String mensaje, String titulo){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnMostrar))
+                    .addComponent(btnMostrar)
+                    .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -179,6 +188,34 @@ public void mostrarMensaje(String mensaje, String titulo){
     }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    String codigoBuscar = txtCodigo.getText();
+
+    if(codigoBuscar.isEmpty()){
+        mostrarMensaje("Ingrese código", "Error");
+        return;
+    }
+
+    boolean eliminado = false;
+
+    for(int i = 0; i < lista.size(); i++){
+        
+        // aquí llamamos al método de Estudiante
+        if(lista.get(i).eliminar(codigoBuscar)){
+            lista.remove(i);
+            eliminado = true;
+            break;
+        }
+    }
+
+    if(eliminado){
+        mostrarMensaje("Estudiante eliminado correctamente");
+        btnMostrarActionPerformed(null); // refresca lista
+    }else{
+        mostrarMensaje("Código no encontrado", "Aviso");
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,6 +243,7 @@ public void mostrarMensaje(String mensaje, String titulo){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

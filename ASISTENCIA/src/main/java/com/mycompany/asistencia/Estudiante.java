@@ -32,4 +32,9 @@ public class Estudiante {
     public String getCodigo(){
         return codigo;
     }
+    public boolean eliminar(String codigoBuscar){
+    return this.codigo.equals(codigoBuscar);
+}
+    
+    
 }
